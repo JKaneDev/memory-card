@@ -1,21 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Game from './components/Game';
 import { getRandomPokemon } from './components/utils/Pokedex';
 
 function App() {
-	const [level, setLevel] = useState(1);
-	const [pokemon, setPokemonList] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+	const [pokemonList, setPokemonList] = useState([]);
+	const [level, setLevel] = useState(0);
 
-	const createLevel = async (quantity) => {
-		const newPokemonList = await getRandomPokemon(quantity);
-		setPokemonList([...pokemon, ...newPokemonList]);
-	};
+	useEffect(() => {
+		const fetchInitialPokemon = async () => {
+			const initialPokemon = await getRandomPokemon(4);
+			setPokemonList(initialPokemon);
+		};
+		fetchInitialPokemon();
+		console.log(pokemonList);
+	}, []);
 
 	return (
 		<>
 			<Header />
-			<Game />
+			{/* <Game
+				pokemonList={pokemonList}
+				setPokemonList={setPokemonList}
+				level={level}
+			/> */}
 		</>
 	);
 }
