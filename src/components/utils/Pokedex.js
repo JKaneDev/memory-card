@@ -4,7 +4,7 @@ const MIN = 1;
 const MAX = 898;
 
 // returns array of objects containing the name and image URL of each pokemon
-const getRandomPokemon = async (quantity) => {
+export const getRandomPokemon = async (quantity) => {
 	const maxOffset = MAX - quantity;
 	const offset = Math.floor(Math.random() * maxOffset);
 	const response = await axios.get(
