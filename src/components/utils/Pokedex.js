@@ -24,6 +24,6 @@ export const getRandomPokemon = async (quantity) => {
 		};
 	});
 
-	console.log(randomPokemon);
+	// console.log(randomPokemon);
 	return randomPokemon;
 };

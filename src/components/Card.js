@@ -1,12 +1,32 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
 
-const Card = ({ name, imageURL }) => {
+const Card = ({
+	id,
+	name,
+	image,
+	clickedCards,
+	setClickedCards,
+	score,
+	setScore,
+	gameover,
+	setGameover,
+}) => {
+	const handleClick = (id) => {
+		console.log(clickedCards);
+		if (!clickedCards.includes(id)) {
+			setClickedCards([...clickedCards, id]);
+		} else {
+			setScore(score + 1);
+			setGameover(true);
+		}
+	};
+
+	useEffect(() => {}, []);
+
 	return (
-		<StyledCard>
-			<div>
-				<img src={imageURL} alt={name} id={name}></img>
-			</div>
+		<StyledCard onClick={() => handleClick(id)}>
+			<img src={image} alt={name}></img>
 			<span>{name}</span>
 		</StyledCard>
 	);
@@ -14,11 +34,11 @@ const Card = ({ name, imageURL }) => {
 
 const StyledCard = styled.div`
 	background-color: grey;
-	border: yellow;
 	min-height: 220px;
 	min-width: 180px;
 	display: flex;
 	flex-direction: column;
+	border-radius: 4px;
 
 	span {
 		margin-top: auto;
@@ -27,7 +47,15 @@ const StyledCard = styled.div`
 		justify-content: center;
 		padding: 1rem;
 		letter-spacing: 0.1rem;
-		border-top: 2px solid yellow;
+		border-top: 2px solid #fff;
+	}
+
+	img {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+		padding: 0.5rem;
 	}
 `;
 
