@@ -20,11 +20,11 @@ const Game = ({ level, pokemonList, createNewLevel }) => {
 	return (
 		<StyledGame>
 			<Prompt level={level} />
-			<div>
+			<StyledGameWrapper>
 				{pokemonList && pokemonList[level - 1] ? (
 					pokemonList[level - 1].map((pokemon) => (
 						<Card
-							name={pokemon.name}
+							name={pokemon.name.toUpperCase()}
 							image={pokemon.imageURL}
 							key={pokemon.id}
 						/>
@@ -32,7 +32,7 @@ const Game = ({ level, pokemonList, createNewLevel }) => {
 				) : (
 					<p>Loading Pokémon...</p>
 				)}
-			</div>
+			</StyledGameWrapper>
 		</StyledGame>
 	);
 };
@@ -46,4 +46,12 @@ const StyledGame = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+`;
+
+const StyledGameWrapper = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 2rem;
+	padding: 0.5rem 2rem 3rem 2rem;
 `;
