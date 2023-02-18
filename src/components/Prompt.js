@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-const Prompt = () => {
+const Prompt = ({ level }) => {
 	return (
 		<StyledPrompt>
-			<p>Level: 1 | Choose Next Pokemon!</p>
+			<p>Level: {level} | Choose Next Pokemon!</p>
 		</StyledPrompt>
 	);
 };

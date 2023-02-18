@@ -6,25 +6,30 @@ import { getRandomPokemon } from './components/utils/Pokedex';
 function App() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [pokemonList, setPokemonList] = useState([]);
-	const [level, setLevel] = useState(0);
+	const [level, setLevel] = useState(1);
+
+	const createNewLevel = async () => {
+		const newPokeListSize = 4 + level * 2;
+		const newPokemon = await getRandomPokemon(newPokeListSize);
+		setPokemonList([...pokemonList, newPokemon]);
+	};
 
 	useEffect(() => {
 		const fetchInitialPokemon = async () => {
 			const initialPokemon = await getRandomPokemon(4);
-			setPokemonList(initialPokemon);
+			setPokemonList([initialPokemon]);
 		};
 		fetchInitialPokemon();
-		console.log(pokemonList);
 	}, []);
 
 	return (
 		<>
 			<Header />
-			{/* <Game
-				pokemonList={pokemonList}
-				setPokemonList={setPokemonList}
+			<Game
 				level={level}
-			/> */}
+				pokemonList={pokemonList}
+				createNewLevel={createNewLevel}
+			/>
 		</>
 	);
 }

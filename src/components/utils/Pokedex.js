@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 const MIN = 1;
 const MAX = 898;
@@ -15,12 +16,14 @@ export const getRandomPokemon = async (quantity) => {
 	// extract name and image URL of each pokemon (array index [6] accesses pokemon ID)
 	const randomPokemon = pokemonList.map((pokemon) => {
 		return {
+			id: uuidv4(),
 			name: pokemon.name,
 			imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
 				pokemon.url.split('/')[6]
 			}.png`,
 		};
 	});
+
 	console.log(randomPokemon);
 	return randomPokemon;
 };
