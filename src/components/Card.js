@@ -2,30 +2,29 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 
 const Card = ({
-	id,
 	name,
 	image,
+	currentPokemon,
+	setCurrentPokemon,
 	clickedCards,
 	setClickedCards,
 	score,
 	setScore,
-	gameover,
 	setGameover,
+	shuffleCards,
 }) => {
-	const handleClick = (id) => {
-		console.log(clickedCards);
-		if (!clickedCards.includes(id)) {
-			setClickedCards([...clickedCards, id]);
+	const handleClick = (name) => {
+		// console.log(clickedCards);
+		if (!clickedCards.includes(name)) {
+			setClickedCards([...clickedCards, name]);
 		} else {
 			setScore(score + 1);
 			setGameover(true);
 		}
 	};
 
-	useEffect(() => {}, []);
-
 	return (
-		<StyledCard onClick={() => handleClick(id)}>
+		<StyledCard onClick={() => handleClick(name)}>
 			<img src={image} alt={name}></img>
 			<span>{name}</span>
 		</StyledCard>

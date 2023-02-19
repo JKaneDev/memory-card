@@ -4,27 +4,34 @@ import Game from './components/Game';
 import { getRandomPokemon } from './components/utils/Pokedex';
 
 function App() {
-	const [isLoading, setIsLoading] = useState(true);
 	const [pokemonList, setPokemonList] = useState([]);
+	const [currentPokemon, setCurrentPokemon] = useState([]);
 	const [level, setLevel] = useState(1);
 	const [score, setScore] = useState(0);
 	const [clickedCards, setClickedCards] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
 	const [gameover, setGameover] = useState(false);
 
 	const createNewLevel = async () => {
 		const newPokeListSize = 4 + level * 2;
 		const newPokemon = await getRandomPokemon(newPokeListSize);
+		setCurrentPokemon([newPokemon]);
 		setPokemonList([...pokemonList, newPokemon]);
 	};
 
 	useEffect(() => {
 		const fetchInitialPokemon = async () => {
 			const initialPokemon = await getRandomPokemon(4);
+			setCurrentPokemon(initialPokemon);
 			setPokemonList([initialPokemon]);
 			setIsLoading(false);
 		};
 		fetchInitialPokemon();
 	}, []);
+
+	useEffect(() => {
+		console.log(currentPokemon);
+	}, [currentPokemon]);
 
 	return (
 		<>
@@ -32,14 +39,12 @@ function App() {
 			<Game
 				level={level}
 				pokemonList={pokemonList}
-				createNewLevel={createNewLevel}
-				isLoading={isLoading}
-				setIsLoading={setIsLoading}
 				score={score}
 				setScore={setScore}
+				currentPokemon={currentPokemon}
+				setCurrentPokemon={setCurrentPokemon}
 				clickedCards={clickedCards}
 				setClickedCards={setClickedCards}
-				gameover={gameover}
 				setGameover={setGameover}
 			/>
 		</>

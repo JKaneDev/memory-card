@@ -2,27 +2,39 @@ import styled from 'styled-components';
 import Prompt from './Prompt';
 import Card from './Card';
 import { useEffect } from 'react';
-import { getRandomPokemon } from './utils/Pokedex';
 
 const Game = ({
 	level,
 	pokemonList,
 	createNewLevel,
-	isLoading,
-	setIsLoading,
+	currentPokemon,
+	setCurrentPokemon,
 	score,
 	setScore,
 	clickedCards,
 	setClickedCards,
-	gameover,
 	setGameover,
 }) => {
+	// shuffle current card display
+	const shuffleCards = (currentPokemon) => {
+		return currentPokemon.sort(() => Math.random() - 0.5);
+	};
+
 	// render cards for level one
 	useEffect(() => {
 		if (level > 1) {
 			createNewLevel();
 		}
 	}, [level]);
+
+	// re-render cards to different positions
+	useEffect(() => {
+		setCurrentPokemon(shuffleCards(currentPokemon));
+	}, [currentPokemon, clickedCards]);
+
+	useEffect(() => {
+		console.log(currentPokemon);
+	}, [clickedCards]);
 
 	return (
 		<StyledGame>
@@ -31,18 +43,18 @@ const Game = ({
 				{pokemonList && pokemonList[level - 1] ? (
 					pokemonList[level - 1].map((pokemon) => (
 						<Card
+							// onClick={() => shuffleCards(pokemonList[level - 1])}
 							name={pokemon.name.toUpperCase()}
 							image={pokemon.imageUrl}
-							id={pokemon.id}
 							key={pokemon.id}
-							isLoading={isLoading}
-							setIsLoading={setIsLoading}
+							currentPokemon={currentPokemon}
+							setCurrentPokemon={setCurrentPokemon}
 							score={score}
 							setScore={setScore}
 							clickedCards={clickedCards}
 							setClickedCards={setClickedCards}
-							gameover={gameover}
 							setGameover={setGameover}
+							shuffleCards={shuffleCards}
 						/>
 					))
 				) : (
