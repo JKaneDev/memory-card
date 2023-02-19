@@ -45,6 +45,7 @@ function App() {
 				setCurrentPokemon={setCurrentPokemon}
 				clickedCards={clickedCards}
 				setClickedCards={setClickedCards}
+				gameover={gameover}
 				setGameover={setGameover}
 			/>
 		</>

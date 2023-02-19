@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Prompt from './Prompt';
 import Card from './Card';
+import Gameover from './Gameover';
 import { useEffect } from 'react';
 
 const Game = ({
@@ -13,6 +14,7 @@ const Game = ({
 	setScore,
 	clickedCards,
 	setClickedCards,
+	gameover,
 	setGameover,
 }) => {
 	// shuffle current card display
@@ -32,36 +34,36 @@ const Game = ({
 		setCurrentPokemon(shuffleCards(currentPokemon));
 	}, [currentPokemon, clickedCards]);
 
-	useEffect(() => {
-		console.log(currentPokemon);
-	}, [clickedCards]);
-
 	return (
-		<StyledGame>
-			<Prompt level={level} />
-			<StyledGameWrapper>
-				{pokemonList && pokemonList[level - 1] ? (
-					pokemonList[level - 1].map((pokemon) => (
-						<Card
-							// onClick={() => shuffleCards(pokemonList[level - 1])}
-							name={pokemon.name.toUpperCase()}
-							image={pokemon.imageUrl}
-							key={pokemon.id}
-							currentPokemon={currentPokemon}
-							setCurrentPokemon={setCurrentPokemon}
-							score={score}
-							setScore={setScore}
-							clickedCards={clickedCards}
-							setClickedCards={setClickedCards}
-							setGameover={setGameover}
-							shuffleCards={shuffleCards}
-						/>
-					))
-				) : (
-					<p>Loading Pokémon...</p>
-				)}
-			</StyledGameWrapper>
-		</StyledGame>
+		<>
+			{gameover ? (
+				<Gameover />
+			) : (
+				<StyledGame>
+					<Prompt level={level} />
+					<StyledGameWrapper>
+						{pokemonList && pokemonList[level - 1] ? (
+							pokemonList[level - 1].map((pokemon) => (
+								<Card
+									name={pokemon.name.toUpperCase()}
+									image={pokemon.imageUrl}
+									key={pokemon.id}
+									currentPokemon={currentPokemon}
+									setCurrentPokemon={setCurrentPokemon}
+									score={score}
+									setScore={setScore}
+									clickedCards={clickedCards}
+									setClickedCards={setClickedCards}
+									setGameover={setGameover}
+								/>
+							))
+						) : (
+							<p>Loading Pokémon...</p>
+						)}
+					</StyledGameWrapper>
+				</StyledGame>
+			)}
+		</>
 	);
 };
 
