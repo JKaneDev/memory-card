@@ -8,6 +8,7 @@ function App() {
 	const [currentPokemon, setCurrentPokemon] = useState([]);
 	const [level, setLevel] = useState(1);
 	const [score, setScore] = useState(0);
+	const [bestScore, setBestScore] = useState(0);
 	const [clickedCards, setClickedCards] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [levelCompleted, setLevelCompleted] = useState(false);
@@ -25,15 +26,7 @@ function App() {
 
 	return (
 		<>
-			<Header
-				level={level}
-				score={score}
-				setLevel={setLevel}
-				setPokemonList={setPokemonList}
-				setCurrentPokemon={setCurrentPokemon}
-				setClickedCards={setClickedCards}
-				setGameover={setGameover}
-			/>
+			<Header score={score} bestScore={bestScore} />
 			<Game
 				level={level}
 				setLevel={setLevel}
@@ -50,6 +43,8 @@ function App() {
 				setClickedCards={setClickedCards}
 				levelCompleted={levelCompleted}
 				setLevelCompleted={setLevelCompleted}
+				bestScore={bestScore}
+				setBestScore={setBestScore}
 				gameover={gameover}
 				setGameover={setGameover}
 			/>

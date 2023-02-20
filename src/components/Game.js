@@ -14,13 +14,14 @@ const Game = ({
 	currentPokemon,
 	setCurrentPokemon,
 	createNewLevel,
-	isLoading,
-	setIsLoading,
 	score,
 	setScore,
+	bestScore,
+	setBestScore,
 	clickedCards,
 	setClickedCards,
 	levelCompleted,
+	setLevelCompleted,
 	gameover,
 	setGameover,
 }) => {
@@ -35,12 +36,6 @@ const Game = ({
 			createNewLevel();
 		}
 	}, [level]);
-
-	useEffect(() => {
-		if (currentPokemon.every((pokemon) => clickedCards.includes(pokemon))) {
-			setLevel(level + 1);
-		}
-	}, [score]);
 
 	// render initial pokemon
 	useEffect(() => {
@@ -63,6 +58,9 @@ const Game = ({
 			{gameover ? (
 				<Gameover
 					setLevel={setLevel}
+					score={score}
+					bestScore={bestScore}
+					setBestScore={setBestScore}
 					setPokemonList={setPokemonList}
 					setCurrentPokemon={setCurrentPokemon}
 					setClickedCards={setClickedCards}
@@ -81,6 +79,10 @@ const Game = ({
 										key={pokemon.id}
 										currentPokemon={currentPokemon}
 										setCurrentPokemon={setCurrentPokemon}
+										level={level}
+										setLevel={setLevel}
+										levelCompleted={levelCompleted}
+										setLevelCompleted={setLevelCompleted}
 										score={score}
 										setScore={setScore}
 										clickedCards={[]}
@@ -99,6 +101,10 @@ const Game = ({
 									key={pokemon.id}
 									currentPokemon={currentPokemon}
 									setCurrentPokemon={setCurrentPokemon}
+									level={level}
+									setLevel={setLevel}
+									levelCompleted={levelCompleted}
+									setLevelCompleted={setLevelCompleted}
 									score={score}
 									setScore={setScore}
 									clickedCards={clickedCards}

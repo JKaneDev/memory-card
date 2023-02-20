@@ -10,15 +10,23 @@ const Card = ({
 	setClickedCards,
 	score,
 	setScore,
+	level,
+	setLevel,
+	levelCompleted,
 	setLevelCompleted,
 	setGameover,
 	shuffleCards,
 }) => {
 	const handleClick = (name) => {
+		console.log('level completed = ', levelCompleted);
+		console.log('clicked cards = ', clickedCards);
 		if (!clickedCards.includes(name)) {
 			setClickedCards([...clickedCards, name]);
+			setScore(score + 1);
 
 			if (clickedCards.length + 1 === currentPokemon.length) {
+				setLevel(level + 1);
+				setClickedCards([]);
 				setLevelCompleted(true);
 			}
 		} else {
