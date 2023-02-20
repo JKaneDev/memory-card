@@ -130,13 +130,14 @@ const StyledGame = styled.div`
 	flex-direction: column;
 	align-items: center;
 	gap: 2rem;
+	flex: 1 1 auto;
 `;
 
 const StyledGameWrapper = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: center;
+	align-items: flex-start;
+	justify-content: center;
 	gap: 5rem;
 	padding: 0.5rem 2rem 3rem 2rem;
 `;

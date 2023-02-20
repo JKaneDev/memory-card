@@ -6,6 +6,7 @@ const Gameover = ({
 	setCurrentPokemon,
 	setClickedCards,
 	setGameover,
+	score,
 }) => {
 	const reset = () => {
 		setLevel(1);
@@ -19,6 +20,7 @@ const Gameover = ({
 	return (
 		<StyledGameover>
 			<h1>GAMEOVER</h1>
+			<p>Score: {score}</p>
 			<button onClick={reset}>NEW GAME</button>
 		</StyledGameover>
 	);
@@ -35,6 +37,7 @@ const StyledGameover = styled.div`
 	background-color: black;
 	color: white;
 	padding-bottom: 10rem;
+	gap: 0.5rem;
 
 	button {
 		background-color: black;
@@ -51,6 +54,14 @@ const StyledGameover = styled.div`
 			color: yellow;
 			transform: translateY(-2.5%);
 		}
+	}
+
+	h1 {
+		padding-bottom: 0.5rem;
+	}
+
+	p {
+		color: yellow;
 	}
 `;
 

@@ -45,17 +45,25 @@ const Card = ({
 
 const StyledCard = styled.div`
 	background-color: grey;
-	min-height: 220px;
-	min-width: 180px;
+	min-height: 180px;
+	min-width: 140px;
 	display: flex;
 	flex-direction: column;
 	border-radius: 4px;
 	transition: 0.25s all ease-in-out;
+	width: 10vw;
+	height: 15vh;
+	box-shadow: yellow 0px 1px 4px;
 
 	&:hover {
 		cursor: pointer;
 		border: 2px solid yellow;
 		transform: translateY(-2.5%);
+	}
+
+
+	&:hover span {
+		border-top 2px solid yellow;
 	}
 
 	span {
@@ -66,10 +74,16 @@ const StyledCard = styled.div`
 		padding: 1rem;
 		letter-spacing: 0.1rem;
 		border-top: 2px solid #5a5a5a;
+		transition: 0.25s all ease-in-out;
 	}
 
 	img {
 		height: 100%;
+	}
+
+	@media (min-width: 1200px) {
+		width: 230px;
+		height: 270px;
 	}
 `;
 

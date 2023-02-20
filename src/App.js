@@ -8,7 +8,7 @@ function App() {
 	const [currentPokemon, setCurrentPokemon] = useState([]);
 	const [level, setLevel] = useState(1);
 	const [score, setScore] = useState(0);
-	const [bestScore, setBestScore] = useState(0);
+
 	const [clickedCards, setClickedCards] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [levelCompleted, setLevelCompleted] = useState(false);
@@ -16,7 +16,7 @@ function App() {
 
 	const createNewLevel = async () => {
 		setLevelCompleted(false);
-		const newPokeListSize = 4 + level + 2;
+		const newPokeListSize = 4 + level * 2;
 		setIsLoading(true);
 		const newPokemon = await getRandomPokemon(newPokeListSize);
 		setCurrentPokemon(newPokemon);
@@ -26,7 +26,7 @@ function App() {
 
 	return (
 		<>
-			<Header score={score} bestScore={bestScore} />
+			<Header score={score} />
 			<Game
 				level={level}
 				setLevel={setLevel}
@@ -43,8 +43,6 @@ function App() {
 				setClickedCards={setClickedCards}
 				levelCompleted={levelCompleted}
 				setLevelCompleted={setLevelCompleted}
-				bestScore={bestScore}
-				setBestScore={setBestScore}
 				gameover={gameover}
 				setGameover={setGameover}
 			/>
