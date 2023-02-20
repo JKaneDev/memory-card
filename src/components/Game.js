@@ -2,18 +2,25 @@ import styled from 'styled-components';
 import Prompt from './Prompt';
 import Card from './Card';
 import Gameover from './Gameover';
+import Loading from './Loading';
 import { useEffect } from 'react';
+import { getRandomPokemon } from './utils/Pokedex';
 
 const Game = ({
 	level,
+	setLevel,
 	pokemonList,
-	createNewLevel,
+	setPokemonList,
 	currentPokemon,
 	setCurrentPokemon,
+	createNewLevel,
+	isLoading,
+	setIsLoading,
 	score,
 	setScore,
 	clickedCards,
 	setClickedCards,
+	levelCompleted,
 	gameover,
 	setGameover,
 }) => {
@@ -29,6 +36,22 @@ const Game = ({
 		}
 	}, [level]);
 
+	useEffect(() => {
+		if (currentPokemon.every((pokemon) => clickedCards.includes(pokemon))) {
+			setLevel(level + 1);
+		}
+	}, [score]);
+
+	// render initial pokemon
+	useEffect(() => {
+		const fetchInitialPokemon = async () => {
+			const initialPokemon = await getRandomPokemon(4);
+			setCurrentPokemon(initialPokemon);
+			setPokemonList([initialPokemon]);
+		};
+		fetchInitialPokemon();
+	}, []);
+
 	// re-render cards to different positions
 	useEffect(() => {
 		setCurrentPokemon(shuffleCards(currentPokemon));
@@ -36,14 +59,40 @@ const Game = ({
 
 	return (
 		<>
+			{/* render cards if gameover is false and API call (loading) is finished (true) */}
 			{gameover ? (
-				<Gameover />
+				<Gameover
+					setLevel={setLevel}
+					setPokemonList={setPokemonList}
+					setCurrentPokemon={setCurrentPokemon}
+					setClickedCards={setClickedCards}
+					setGameover={setGameover}
+				/>
 			) : (
 				<StyledGame>
 					<Prompt level={level} />
 					<StyledGameWrapper>
-						{pokemonList && pokemonList[level - 1] ? (
-							pokemonList[level - 1].map((pokemon) => (
+						{levelCompleted ? (
+							pokemonList && pokemonList[level] ? (
+								pokemonList[level].map((pokemon) => (
+									<Card
+										name={pokemon.name.toUpperCase()}
+										image={pokemon.imageUrl}
+										key={pokemon.id}
+										currentPokemon={currentPokemon}
+										setCurrentPokemon={setCurrentPokemon}
+										score={score}
+										setScore={setScore}
+										clickedCards={[]}
+										setClickedCards={setClickedCards}
+										setGameover={setGameover}
+									/>
+								))
+							) : (
+								<p>Loading Pokémon...</p>
+							)
+						) : (
+							currentPokemon.map((pokemon) => (
 								<Card
 									name={pokemon.name.toUpperCase()}
 									image={pokemon.imageUrl}
@@ -57,8 +106,6 @@ const Game = ({
 									setGameover={setGameover}
 								/>
 							))
-						) : (
-							<p>Loading Pokémon...</p>
 						)}
 					</StyledGameWrapper>
 				</StyledGame>

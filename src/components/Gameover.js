@@ -1,14 +1,25 @@
 import styled from 'styled-components';
 
-const Gameover = () => {
-	const refresh = () => {
+const Gameover = ({
+	setLevel,
+	setPokemonList,
+	setCurrentPokemon,
+	setClickedCards,
+	setGameover,
+}) => {
+	const reset = () => {
+		setLevel(1);
+		setCurrentPokemon([]);
+		setPokemonList([]);
+		setClickedCards([]);
+		setGameover(false);
 		window.location.reload();
 	};
 
 	return (
 		<StyledGameover>
 			<h1>GAMEOVER</h1>
-			<button onClick={refresh}>New Game</button>
+			<button onClick={reset}>NEW GAME</button>
 		</StyledGameover>
 	);
 };

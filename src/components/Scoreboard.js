@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-const Scoreboard = () => {
+const Scoreboard = ({ score }) => {
 	return (
 		<StyledScoreboard>
-			<span>Score: 0</span>|<span>Best: 0</span>
+			<span>Score: {score || 0}</span>|<span>Best: 0</span>
 		</StyledScoreboard>
 	);
 };
@@ -16,6 +16,7 @@ const StyledScoreboard = styled.div`
 	margin-left: auto;
 	margin-right: 3rem;
 	color: white;
+	letter-spacing: 0.1rem;
 
 	span:nth-of-type(1) {
 		color: white;

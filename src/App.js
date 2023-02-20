@@ -9,42 +9,47 @@ function App() {
 	const [level, setLevel] = useState(1);
 	const [score, setScore] = useState(0);
 	const [clickedCards, setClickedCards] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setIsLoading] = useState(false);
+	const [levelCompleted, setLevelCompleted] = useState(false);
 	const [gameover, setGameover] = useState(false);
 
 	const createNewLevel = async () => {
-		const newPokeListSize = 4 + level * 2;
+		setLevelCompleted(false);
+		const newPokeListSize = 4 + level + 2;
+		setIsLoading(true);
 		const newPokemon = await getRandomPokemon(newPokeListSize);
-		setCurrentPokemon([newPokemon]);
+		setCurrentPokemon(newPokemon);
 		setPokemonList([...pokemonList, newPokemon]);
+		setIsLoading(false);
 	};
-
-	useEffect(() => {
-		const fetchInitialPokemon = async () => {
-			const initialPokemon = await getRandomPokemon(4);
-			setCurrentPokemon(initialPokemon);
-			setPokemonList([initialPokemon]);
-			setIsLoading(false);
-		};
-		fetchInitialPokemon();
-	}, []);
-
-	useEffect(() => {
-		console.log(currentPokemon);
-	}, [currentPokemon]);
 
 	return (
 		<>
-			<Header />
+			<Header
+				level={level}
+				score={score}
+				setLevel={setLevel}
+				setPokemonList={setPokemonList}
+				setCurrentPokemon={setCurrentPokemon}
+				setClickedCards={setClickedCards}
+				setGameover={setGameover}
+			/>
 			<Game
 				level={level}
+				setLevel={setLevel}
+				createNewLevel={createNewLevel}
 				pokemonList={pokemonList}
+				setPokemonList={setPokemonList}
 				score={score}
 				setScore={setScore}
+				isLoading={isLoading}
+				setIsLoading={setIsLoading}
 				currentPokemon={currentPokemon}
 				setCurrentPokemon={setCurrentPokemon}
 				clickedCards={clickedCards}
 				setClickedCards={setClickedCards}
+				levelCompleted={levelCompleted}
+				setLevelCompleted={setLevelCompleted}
 				gameover={gameover}
 				setGameover={setGameover}
 			/>

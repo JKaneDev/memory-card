@@ -3,14 +3,32 @@ import Scoreboard from './Scoreboard';
 import abra from '../assets/abra.png';
 import styled from 'styled-components';
 
-const Header = () => {
+const Header = ({
+	setLevel,
+	setPokemonList,
+	setCurrentPokemon,
+	setClickedCards,
+	setGameover,
+	score,
+	level,
+}) => {
+	const reset = () => {
+		console.log(level);
+		setClickedCards([]);
+		setCurrentPokemon([]);
+		setPokemonList([]);
+		setGameover(false);
+		setLevel(1);
+		window.location.reload();
+	};
 	return (
 		<StyledHeader>
 			<div>
 				<img src={abra} alt='title-img' id='title-img'></img>
 				<h1>Gotta Click 'em all</h1>
+				<button onClick={reset}>Reset</button>
 			</div>
-			<Scoreboard />
+			<Scoreboard score={score} />
 		</StyledHeader>
 	);
 };

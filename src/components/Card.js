@@ -10,13 +10,17 @@ const Card = ({
 	setClickedCards,
 	score,
 	setScore,
+	setLevelCompleted,
 	setGameover,
 	shuffleCards,
 }) => {
 	const handleClick = (name) => {
-		// console.log(clickedCards);
 		if (!clickedCards.includes(name)) {
 			setClickedCards([...clickedCards, name]);
+
+			if (clickedCards.length + 1 === currentPokemon.length) {
+				setLevelCompleted(true);
+			}
 		} else {
 			setScore(score + 1);
 			setGameover(true);
@@ -38,6 +42,13 @@ const StyledCard = styled.div`
 	display: flex;
 	flex-direction: column;
 	border-radius: 4px;
+	transition: 0.25s all ease-in-out;
+
+	&:hover {
+		cursor: pointer;
+		border: 2px solid yellow;
+		transform: translateY(-2.5%);
+	}
 
 	span {
 		margin-top: auto;
@@ -46,15 +57,11 @@ const StyledCard = styled.div`
 		justify-content: center;
 		padding: 1rem;
 		letter-spacing: 0.1rem;
-		border-top: 2px solid #fff;
+		border-top: 2px solid #5a5a5a;
 	}
 
 	img {
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		height: 100%;
-		padding: 0.5rem;
 	}
 `;
 
